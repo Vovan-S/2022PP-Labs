@@ -112,12 +112,22 @@ _ψ1(t) = ψ2(t) = 0_. Решение находится по следующей
 
 ![](https://latex.codecogs.com/gif.latex?u%28x%2C%20t%29%20%3D%20%5Csum%5E%7B&plus;%5Cinfty%7D_%7Bn%3D1%7D%5Cleft%28%5Calpha_n%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%20na%7D%7Bl%7Dt%5Cright%29%20&plus;%20%5Cbeta_n%20%5Ccos%5Cleft%28%5Cfrac%7B%5Cpi%20na%7D%7Bl%7Dt%5Cright%29%20%5Cright%20%29%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%20nx%7D%7Bl%7D%20%5Cright%20%29), (3)
 
-где ![](https://latex.codecogs.com/gif.latex?%5Calpha_n%20%3D%20%5Cfrac%7B1%7D%7Ba%5Cpi%20n%7D%5Cint_%7B-l%7D%5El%5Cphi_2%28x%29%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%7D%7Bl%7Dkx%5Cright%29dx%2C%5Cquad%5Cbeta_n%3D%5Cfrac%7B1%7D%7Bl%7D%5Cint%5El_%7B-l%7D%5Cphi_1%28x%29%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%7D%7Bl%7Dkx%5Cright%29dx).
+где ![](https://latex.codecogs.com/gif.latex?%5Calpha_n%20%3D%20%5Cfrac%7B1%7D%7Ba%5Cpi%20n%7D%5Cint_%7B-l%7D%5El%5Cphi_2%28x%29%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%7D%7Bl%7Dnx%5Cright%29dx%2C%5Cquad%5Cbeta_n%3D%5Cfrac%7B1%7D%7Bl%7D%5Cint%5El_%7B-l%7D%5Cphi_1%28x%29%5Csin%5Cleft%28%5Cfrac%7B%5Cpi%7D%7Bl%7Dnx%5Cright%29dx).
 
 Метод учета волн дает аналитическое решение, если _𝜙1(x) = 𝜙2(x) = 0_, а
 _ψ1_ и _ψ2_ равны некоторым известным функциям _μ_ и _ν_ соответственно. 
 Решение находится по следующей формуле: 
 
 ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/447e7d300151b5900295e0b61ef30fb48467bcc6). (4)
+
+## Тестирование 
+Для тестирования используем два различных волновых уравнения, решения
+которых можно найти аналитически. 
+
+### Колебание струны с фиксированными краями
+Волновое уравнение выглядит так: 
+
+![](https://latex.codecogs.com/gif.latex?%5Cfrac%7B%5Cpartial%5E2u%7D%7B%5Cpartial%20t%5E2%7D%3D9%5Cfrac%7B%5Cpartial%5E2u%7D%7B%5Cpartial%20x%5E2%7D), 
+_0 ≤ x ≤ 3_, _ψ1(t) = ψ2(t) = 0_, _𝜙1(x) = x(3-x)_,  _𝜙2(x) = 0_.
 
 
