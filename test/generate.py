@@ -22,15 +22,14 @@ def generate_data(P, M, h, tau, a):
     )
     return np.sin(np.pi * x / l)*np.sin(np.pi*a*t/l)
 
-
-def compare_data(filename):
-    actual = generate_data(*DEFAULT_VALUES)
-    got = utils.read_solution(filename)
-    diff = np.abs(actual - got)
-    print("File:", filename)
-    print("Average difference:", np.average(diff))
-    print("Max difference:", np.max(diff))
-
+def generate_input(P, M, h, tau, a):
+    l = h * M
+    return (
+        np.zeros((M,)),
+        np.pi*a/l*np.sin(np.linspace(0, l, M)*np.pi/l),
+        np.zeros((P,)),
+        np.zeros((P,))
+    )
 
 if __name__ == "__main__":
-    compare_data("solution/numpy/res.txt")
+    pass

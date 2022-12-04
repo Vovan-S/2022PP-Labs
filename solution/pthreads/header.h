@@ -1,20 +1,8 @@
-#include "pthread.h"
+#include <pthread.h>
+#include <stdlib.h>
 
-#ifndef N_THREADS
-#define N_THREADS 8
-#endif
+#include "../common/io.h"
+#include "../common/iteration.h"
 
-typedef struct {
-    int M;
-    int P;
-    double h;
-    double tau;
-    double a;
-} Parameters;
-
-typedef struct {
-    double *phi1;
-    double *phi2;
-    double *psi1;
-    double *psi2;
-} EdgeConditions;
+void solve_join(Parameters* pars, EdgeConditions* edge, double *result, int n_threads);
+void solve_barrier(Parameters* pars, EdgeConditions* edge, double *result, int n_threads);
