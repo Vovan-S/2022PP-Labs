@@ -7,7 +7,7 @@ out/solution.o:
 	mpicc -o out/solution.o ${sources} ${lib} 
 
 run: out/solution.o
-	@mpiexec -np $(NP) ./out/solution.o
+	@mpiexec -np $(N) ./out/solution.o
 
 rebuild: clean out/solution.o out/speedtest.o
 

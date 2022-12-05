@@ -22,7 +22,7 @@ speed_join: out/speedtest.join.o
 	cat ${exp1} | ${runner} ./out/speedtest.join.o {NP} 
 
 run_join: out/join.o
-	@./join.o ${NP}
+	@./join.o ${N}
 
 test_barrier: out/barrier.o
 	cat ${test_data} | ./out/barrier.o | ${tester}
@@ -31,7 +31,7 @@ speed_barrier: out/speedtest.barrier.o
 	cat ${exp1} | ${runner} ./out/speedtest.barrier.o {NP} > res/barrier.csv
 
 run_barrier: out/barrier.o
-	@./out/barrier.o ${NP}
+	@./out/barrier.o ${N}
 
 rebuild: clean out/join.o out/barrier.o out/speedtest.join.o out/speedtest.barrier.o
 

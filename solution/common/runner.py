@@ -1,7 +1,6 @@
 import sys
 import itertools
 import subprocess
-from os import path
 import re
 
 with sys.stdin as fin:

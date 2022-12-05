@@ -8,7 +8,7 @@ exp1 = $(exp_folder)/1node.txt
 exp2 = $(exp_folder)/2node.txt 
 exp5 = $(exp_folder)/5node.txt 
 
-NP = $(if $(NP), $(NP), 4) # default value for number of processes
+N = $(if $(NP), $(NP), 4) # default value for number of processes
 
 clean:
 	rm -f ./out/*.o

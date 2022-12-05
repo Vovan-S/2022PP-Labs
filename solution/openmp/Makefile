@@ -10,7 +10,7 @@ out/speedtest.o:
 	gcc -o out/speedtest.o -D SPEED_TEST=1 -fopenmp ${sources} ${lib}
 
 run: out/solution.o
-	@./out/solution.o ${NP}
+	@./out/solution.o ${N}
 
 rebuild: clean out/solution.o out/speedtest.o
 
