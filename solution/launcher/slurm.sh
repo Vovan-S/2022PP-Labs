@@ -11,4 +11,4 @@ module add compiler/gcc/11.2.0
 module add mpi/openmpi/4.1.3/gcc/11
 module add python/3.9
 
-.launcher/runner.sh $@
+./launcher/runner.sh $@

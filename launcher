@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if ! which python3 2>/dev/null; then 
+    if ! module load python/3.9; then 
+        echo Cannot load pyhton v3.9!
+        exit 1
+    fi 
+fi 
+
+python3 solution/launcher/launch.py $@

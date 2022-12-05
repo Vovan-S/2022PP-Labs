@@ -14,7 +14,7 @@ FILENAME = f"launch-{datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}"
 
 def check_scc() -> bool:
     try: 
-        subprocess.call(["sbatch", "--version"])
+        subprocess.call(["sbatch", "--version"], stdout=subprocess.DEVNULL)
     except:
         return False
     return True
@@ -23,10 +23,10 @@ def check_scc() -> bool:
 def idle_nodes() -> Dict[str, int]:
     p = subprocess.Popen(
         ["sinfo", "-o", "%R %D", "-t", "idle", "-h"], 
-        stdout=subprocess.PIPE)
-    out, err = p.communicate()
+        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    out, _ = p.communicate()
     result: Dict[str, int] = {}
-    for line in out.splitlines():
+    for line in out.decode().splitlines():
         partition, n_idle = line.split()
         result[partition] = int(n_idle)
     for p in PARTITIONS:
@@ -88,7 +88,6 @@ has_input_file = args.stdin is not None
 os.chdir(path.dirname(__file__))
 os.chdir("..")
 
-
 if check_scc():
     requested_nodes = 1 if args.action in ["rebuild", "test", "run", "speedtest"] \
         else 2 if args.action == "speedtest2" else 5
@@ -114,7 +113,7 @@ if check_scc():
     script_args = ["sbatch", 
         "-J", f"LabPP-{args.action}-{args.implementation}", 
         "-p", args.partition, 
-        "-N", requested_nodes,
+        "-N", str(requested_nodes),
         "-o", stdout_abspath,
         "-e", stderr_abspath,
         "./launcher/slurm.sh"] + (["-T"] if args.time else []) + [

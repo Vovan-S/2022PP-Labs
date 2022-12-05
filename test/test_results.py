@@ -11,7 +11,7 @@ def compare_data(filename=None):
     else:
         got = utils.read_solution_from_stdin()
     diff = np.abs(actual - got)
-    print("File:", filename if filename else "stdin")
+    # print("File:", filename if filename else "stdin")
     print("Average difference:", np.average(diff))
     print("Max difference:", np.max(diff))
     
