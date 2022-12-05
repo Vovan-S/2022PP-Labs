@@ -1,14 +1,13 @@
+include ../common/common.mk
+
 sources = solution_mpi.c ../common/io.c ../common/iteration.c
 lib = -lm
-tester = ../common/tester.sh 
-test_data = ../common/test.inputs.txt
-runner = python3 ../common/runner.py
 
 out/solution.o:
 	mpicc -o out/solution.o ${sources} ${lib} 
 
 run: out/solution.o
-	mpiexec -np $(NP) ./out/solution.o
+	@mpiexec -np $(NP) ./out/solution.o
 
 rebuild: clean out/solution.o out/speedtest.o
 
@@ -19,7 +18,10 @@ out/speedtest.o:
 	mpicc -o out/speedtest.o -D SPEED_TEST=1 ${sources} ${lib}
 
 speedtest: out/speedtest.o
-	${runner} mpirun -np {NP} ./out/speedtest.o > res/result.csv
+	cat ${exp1} | ${runner} mpirun -np {NP} ./out/speedtest.o 
 
-clean:
-	rm -f out/*.o
+speedtest2: out/speedtest.o 
+	cat ${exp2} | ${runner} mpirun -np {NP} ./out/speedtest.o 
+
+speedtest5: out/speedtest.o 
+	cat ${exp5} | ${runner} mpirun -np {NP} ./out/speedtest.o 

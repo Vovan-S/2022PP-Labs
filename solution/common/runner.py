@@ -4,10 +4,7 @@ import subprocess
 from os import path
 import re
 
-SETTINGS_FILE = path.join(path.dirname(__file__), "experiment.settings")
-
-
-with open(SETTINGS_FILE, 'r') as fin:
+with sys.stdin as fin:
     repeat = int(fin.readline())
     Ms = [int(x) for x in fin.readline().split()]
     Ps = [int(x) for x in fin.readline().split()]
