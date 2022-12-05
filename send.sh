@@ -1,7 +1,11 @@
 #!/bin/bash
-ssh -i ~/.ssh/scc2_sennov tm5u5@login1.hpc.spbstu.ru 'rm -r 09Sem/*'
-scp -i ~/.ssh/scc2_sennov -r solution tm5u5@login1.hpc.spbstu.ru:09Sem/solution
-scp -i ~/.ssh/scc2_sennov -r test tm5u5@login1.hpc.spbstu.ru:09Sem/test
-scp -i ~/.ssh/scc2_sennov launcher tm5u5@login1.hpc.spbstu.ru:09Sem/.
+KEY=~/.ssh/scc2_sennov
+LOGIN=tm5u5
+HOST=login1.hpc.spbstu.ru
+LH="${LOGIN}@${HOST}"
 
-# rsync -azv --rsh="ssh -i ~/.ssh/scc2_sennov" solution tm5u5@login1.hpc.spbstu.ru:09Sem/solution
+ssh -i ${KEY} ${LH} 'rm -r 09Sem/*'
+scp -i ${KEY} -r solution ${LH}:09Sem/solution
+scp -i ${KEY} -r test ${LH}:09Sem/test
+scp -i ${KEY} launcher ${LH}:09Sem/.
+
