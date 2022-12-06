@@ -96,7 +96,8 @@ def main():
     else:
         edge = None
     pars = COMM.bcast(pars, 0)
-    k = max(1 << k for k in range(16) if 1 << k < number_of_processes)
+    k = max(1 << k for k in range(16) if 1 << k < number_of_processes) \
+        if number_of_processes > 1 else 0
     if rank == 0:
         buffer = (edge.phi1[1:-1], edge.phi2[1:-1])
         size = pars.M - 2

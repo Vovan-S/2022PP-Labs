@@ -35,14 +35,15 @@ int main(int argc, char **argv)
         rank, pars.M, pars.P, pars.a, pars.tau, pars.h);
   }
 
+  // every process work with at least two values
   if (number_of_processes >= pars.M - 2)
   {
-    if (rank >= pars.M - 2) 
+    if (rank >= (pars.M - 2) / 2) 
     {
       MPI_Finalize();
       return 0;
     }
-    number_of_processes = pars.M - 2;
+    number_of_processes = (pars.M - 2) / 2;
   }
 
   // fan out

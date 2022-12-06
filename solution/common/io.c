@@ -34,16 +34,16 @@ int read_from_stdin(EdgeConditions *edge, Parameters *pars)
         return ERR_P;
     if (pars->P < 2)
         return ERR_P | ERR_OUT_OF_DOMAIN;
-    //    read h
-    if (!scanf("%lf", &pars->h))
-        return ERR_h;
-    if (pars->h <= 0)
-        return ERR_h | ERR_OUT_OF_DOMAIN;
     //    read tau
     if (!scanf("%lf", &pars->tau))
         return ERR_tau;
     if (pars->tau <= 0)
         return ERR_tau | ERR_OUT_OF_DOMAIN;
+    //    read h
+    if (!scanf("%lf", &pars->h))
+        return ERR_h;
+    if (pars->h <= 0)
+        return ERR_h | ERR_OUT_OF_DOMAIN;
     //    read a
     if (!scanf("%lf", &pars->a))
         return ERR_a;
