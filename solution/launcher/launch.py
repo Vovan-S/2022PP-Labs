@@ -69,7 +69,7 @@ parser.add_argument(
     "-t", "--time", action="store_true",
     help="Measure runtime")
 parser.add_argument(
-    "-n", "--number-of-processes", type=int, default=8,
+    "-n", "--number-of-processes", type=int, default=4,
     help="Number of processes for running program")
 parser.add_argument(
     "action", choices=["rebuild", "test", "run", "speedtest", "speedtest2", "speedtest5"],
