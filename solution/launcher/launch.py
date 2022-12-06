@@ -1,19 +1,20 @@
 import argparse
-import subprocess 
+import subprocess
 from typing import Dict
 import os
 from os import path
 import datetime
 import sys
 import re
-import time 
+import time
 
 PARTITIONS = ["tornado", "tornado-k40", "cascade"]
 
-FILENAME = f"launch-{datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')}"
+FILENAME = f"launch-{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
+
 
 def check_scc() -> bool:
-    try: 
+    try:
         subprocess.call(["sbatch", "--version"], stdout=subprocess.DEVNULL)
     except:
         return False
@@ -22,7 +23,7 @@ def check_scc() -> bool:
 
 def idle_nodes() -> Dict[str, int]:
     p = subprocess.Popen(
-        ["sinfo", "-o", "%R %D", "-t", "idle", "-h"], 
+        ["sinfo", "-o", "%R %D", "-t", "idle", "-h"],
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
     out, _ = p.communicate()
     result: Dict[str, int] = {}
@@ -34,6 +35,7 @@ def idle_nodes() -> Dict[str, int]:
             result[p] = 0
     return result
 
+
 def wait_for_job(job_id: str):
     while True:
         time.sleep(5)
@@ -42,11 +44,12 @@ def wait_for_job(job_id: str):
         if job_id not in out.decode():
             return
 
+
 parser = argparse.ArgumentParser(
     prog="launcher",
     description="Launches different implementation",)
 parser.add_argument(
-    "-p", "--partition", 
+    "-p", "--partition",
     choices=PARTITIONS, default=PARTITIONS[0],
     help="Choose partition, default: tornado")
 parser.add_argument(
@@ -57,13 +60,13 @@ parser.add_argument(
     default=FILENAME + ".out",
     help="File for stdout of slurm")
 parser.add_argument(
-    "-e", "--stderr", 
+    "-e", "--stderr",
     default=FILENAME + ".err",
     help="File for stdin of slurm")
 parser.add_argument(
     "-i", "--stdin", help="For 'run' option read from given file name")
 parser.add_argument(
-    "-c", "--console", action="store_true", 
+    "-c", "--console", action="store_true",
     help="Will wait for process to end and print everything in console")
 parser.add_argument(
     "-t", "--time", action="store_true",
@@ -97,7 +100,8 @@ if check_scc():
         if args.free_partition:
             for partition, nodes in idle_nodes_map.items():
                 if nodes >= requested_nodes:
-                    print(f"Partition {partition} has {nodes} idle nodes, switching to it")
+                    print(
+                        f"Partition {partition} has {nodes} idle nodes, switching to it")
                     args.partition = partition
                     break
             else:
@@ -106,17 +110,18 @@ if check_scc():
         else:
             sys.exit("No available nodes")
     if args.action in ["speedtest2", "speedtest5"] \
-        and args.implementation not in ["cmpi", "pympi"]:
-        print(f"Action {args.action} is not available for {args.implementation}")
+            and args.implementation not in ["cmpi", "pympi"]:
+        print(
+            f"Action {args.action} is not available for {args.implementation}")
         sys.exit("Invalid action")
-    
-    script_args = ["sbatch", 
-        "-J", f"LabPP-{args.action}-{args.implementation}", 
-        "-p", args.partition, 
-        "-N", str(requested_nodes),
-        "-o", stdout_abspath,
-        "-e", stderr_abspath,
-        "./launcher/slurm.sh"] + (["-T"] if args.time else []) + [
+
+    script_args = ["sbatch",
+                   "-J", f"LabPP-{args.action}-{args.implementation}",
+                   "-p", args.partition,
+                   "-N", str(requested_nodes),
+                   "-o", stdout_abspath,
+                   "-e", stderr_abspath,
+                   "./launcher/slurm.sh"] + (["-T"] if args.time else []) + [
         args.implementation,
         args.action,
     ]
@@ -127,7 +132,8 @@ if check_scc():
             with open(stdin_abspath, "w") as fout:
                 fout.write(sys.stdin.read())
         script_args += [stdin_abspath, str(args.number_of_processes)]
-    r = subprocess.Popen(script_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    r = subprocess.Popen(
+        script_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = r.communicate()
     if args.console:
         m = re.search(r'job (\d+)', out.decode())
