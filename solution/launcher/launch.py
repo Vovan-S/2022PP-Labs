@@ -135,13 +135,14 @@ if check_scc():
     r = subprocess.Popen(
         script_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = r.communicate()
+    m = re.search(r'job (\d+)', out.decode())
+    if not m:
+        print("Cannot get job id, exiting")
+        sys.exit("Job id error")
+    job_id = m.group(1)
+    print(f"Started job {job_id}")
     if args.console:
-        m = re.search(r'job (\d+)', out.decode())
-        if not m:
-            print("Cannot get job id, exiting")
-            sys.exit("Job id error")
-        job_id = m.group(1)
-        print(f"Waiting for job {job_id}")
+        print(f"Waiting for job to finish")
         wait_for_job(job_id)
         print("\nSTDOUT\n")
         with open(stdout_abspath, 'r') as fin:
