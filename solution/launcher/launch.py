@@ -78,7 +78,7 @@ parser.add_argument(
     "action", choices=["rebuild", "test", "run", "speedtest", "speedtest2", "speedtest5"],
     help="Action of program")
 parser.add_argument(
-    "implementation", choices=["all", "pthreads", "cmpi", "openmp", "pympi"],
+    "implementation", choices=["all", "pthreads", "cmpi", "openmp", "pympi", "nbmpi"],
     help="Implementation to run program")
 
 args = parser.parse_args()
@@ -110,7 +110,7 @@ if check_scc():
         else:
             sys.exit("No available nodes")
     if args.action in ["speedtest2", "speedtest5"] \
-            and args.implementation not in ["cmpi", "pympi"]:
+            and args.implementation not in ["cmpi", "pympi", "nbmpi"]:
         print(
             f"Action {args.action} is not available for {args.implementation}")
         sys.exit("Invalid action")

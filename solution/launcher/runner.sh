@@ -18,7 +18,7 @@ fi
 
 if [[ $1 == "all" ]]; then 
     shift
-    for dir in cmpi pthreads openmp pympi
+    for dir in cmpi pthreads openmp pympi nbmpi
     do 
         ./launcher/runner.sh -V ${T_arg} $dir $@
         echo ; echo
